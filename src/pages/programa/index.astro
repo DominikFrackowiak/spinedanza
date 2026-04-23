@@ -1,0 +1,25 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import Hero from '../../components/organisms/hero/index.astro'
+import Stack from '../../components/atoms/stack/index.astro'
+import ProgramSection from '../../components/organisms/program-section/index.astro'
+import { programData } from '../../constants/program'
+---
+
+<Layout>
+	<Hero
+		buttonContent='Ver la propuesta'
+		title='SPINE'
+		description1='CICLO DE PROFUNDIZACIÓN EN'
+		description2='DANZA CONTACT IMPROVISACIÓN'
+		backgroundImage='	https://spinedanza.es/wp-content/uploads/2026/03/P1004673-copy-scaled.webp'
+	/>
+	<Stack className='py-6'>
+		{
+			programData.map(section => {
+				console.log(section)
+				return <ProgramSection {...section} />
+			})
+		}
+	</Stack>
+</Layout>

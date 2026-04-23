@@ -1,0 +1,58 @@
+---
+import { cn } from '../../../utils/cn'
+const currentPath = Astro.url.pathname
+import { socialNavigation } from '../../../constants/navigation'
+import FacebookIcon from '../../atoms/facebook-icon/index.astro'
+import WhatsAppIcon from '../../atoms/whatsapp-icon/index.astro'
+import InstagramIcon from '../../atoms/instagram-icon/index.astro'
+
+const socialIconMap = {
+	facebook: FacebookIcon,
+	instagram: InstagramIcon,
+	whatsapp: WhatsAppIcon,
+} satisfies Record<
+	(typeof socialNavigation)[number]['icon'],
+	typeof FacebookIcon
+>
+---
+
+<footer
+	class={cn(
+		'flex w-screen items-center justify-between bottom-0 left-0 p-10',
+		currentPath === '/' ? 'fixed' : 'relative'
+	)}
+>
+	<div class='flex items-center gap-5'>
+		<img
+			src='https://spinedanza.es/wp-content/uploads/2026/03/spine-green-small.svg'
+		/>
+		<nav class='flex gap-4'>
+			{
+				socialNavigation.map(el => {
+					const Icon = socialIconMap[el.icon]
+
+					return (
+						<a
+							href={el.url}
+							aria-label={el.title}
+							target='_blank'
+							rel='noreferrer'
+							class='h-5 w-5'
+						>
+							<Icon />
+						</a>
+					)
+				})
+			}
+		</nav>
+	</div>
+	<div class='flex items-center gap-4'>
+		<span>Designed and developed by:</span>
+		<a href='https://kraftweb.eu/?locale=es'
+			><img
+				src='https://spinedanza.es/wp-content/uploads/2026/03/kraftweb-logo-small-cropped.svg'
+				alt='kraftweb.eu logo'
+			/></a
+		>
+	</div>
+</footer>

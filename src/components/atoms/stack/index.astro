@@ -1,0 +1,8 @@
+---
+import { cn } from '../../../utils/cn'
+const { className } = Astro.props
+---
+
+<div class={cn('flex flex-col gap-6 w-full max-w-6xl', className)}>
+	<slot />
+</div>

@@ -1,0 +1,26 @@
+---
+import { cn } from '../../../utils/cn'
+import Stack from '../../../components/atoms/stack/index.astro'
+import Row from '../../../components/atoms/row/index.astro'
+import Heading from '../../../components/atoms/heading/index.astro'
+import CenteringWrapper from '../../../components/atoms/centering-wrapper/index.astro'
+import { type ProgramSection as Props } from '../../../constants/program'
+
+const { number, title, background, paragraphs } = Astro.props
+---
+
+<CenteringWrapper className={cn(background)}>
+	<Row
+		leftWidth={background === 'bg-white' ? 'w-3/4' : 'w-1/4'}
+		rightWidth={background === 'bg-white' ? 'w-1/4' : 'w-3/4'}
+	>
+		<Stack slot='left'>
+			<Heading
+				text={title}
+				className={background === 'bg-white' ? 'text-accent' : 'text-white'}
+			/>
+			{paragraphs.map(p => <p set:html={p} />)}
+		</Stack>
+		<div slot='right'><span>{number}</span></div>
+	</Row>
+</CenteringWrapper>

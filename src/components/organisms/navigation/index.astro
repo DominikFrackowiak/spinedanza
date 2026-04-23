@@ -1,0 +1,30 @@
+---
+import ArrowDownIcon from '../../atoms/arrow-down-icon/index.astro'
+import NavigationMobile from '../navigation-mobile'
+import { navigationData } from '../../../constants/navigation'
+
+import { cn } from '../../../utils/cn'
+
+const currentPath = Astro.url.pathname.slice(1)
+---
+
+<nav class='fixed top-0 left-0 w-screen flex justify-between p-10 z-2'>
+	<a href='/' class='h-8 w-8 text-white'><ArrowDownIcon /></a>
+	<ul class='hidden md:flex gap-6'>
+		{
+			navigationData.map(el => (
+				<li
+					class={cn(
+						'',
+						currentPath !== el.title.toLowerCase()
+							? 'text-white font-medium'
+							: 'text-accent font-bold underline underline-offset-8'
+					)}
+				>
+					<a href={el.url}>{el.title}</a>
+				</li>
+			))
+		}
+	</ul>
+	<NavigationMobile className='block md:hidden text-white h-8' client:load />
+</nav>
