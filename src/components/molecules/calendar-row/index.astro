@@ -1,0 +1,13 @@
+---
+import { type CalendarData as Props } from '../../../constants/calendar'
+
+const { number, title, dates } = Astro.props
+---
+
+<div
+	class='flex flex-col lg:flex-row items-center gap-3.5 w-full text-dark font-sans border-b border-dark py-2.5'
+>
+	<span class='text-accent text-3xl!'>{number}</span>
+	<span class='text-xl text-center lg:text-left'>{title}</span>
+	<strong class='text-xl'>{dates}</strong>
+</div>

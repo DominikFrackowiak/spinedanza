@@ -1,7 +1,7 @@
 ---
 import { cn } from '../../../utils/cn'
 import Stack from '../../../components/atoms/stack/index.astro'
-import Row from '../../../components/atoms/row/index.astro'
+import SplitScreen from '../../../components/atoms/split-screen-wrapper/index.astro'
 import Heading from '../../../components/atoms/heading/index.astro'
 import CenteringWrapper from '../../../components/atoms/centering-wrapper/index.astro'
 import { type ProgramSection as Props } from '../../../constants/program'
@@ -9,18 +9,23 @@ import { type ProgramSection as Props } from '../../../constants/program'
 const { number, title, background, paragraphs } = Astro.props
 ---
 
-<CenteringWrapper className={cn(background)}>
-	<Row
-		leftWidth={background === 'bg-white' ? 'w-3/4' : 'w-1/4'}
-		rightWidth={background === 'bg-white' ? 'w-1/4' : 'w-3/4'}
+<CenteringWrapper className={cn(background, 'py-6')}>
+	<SplitScreen
+		leftWidth='w-full lg:w-3/4'
+		rightWidth='w-0 lg:w-1/4'
+		className='pb-6'
 	>
 		<Stack slot='left'>
 			<Heading
-				text={title}
-				className={background === 'bg-white' ? 'text-accent' : 'text-white'}
+				text={number}
+				className='block lg:hidden text-accent text-6xl'
 			/>
+			<Heading text={title} className='text-accent' />
+
 			{paragraphs.map(p => <p set:html={p} />)}
 		</Stack>
-		<div slot='right'><span>{number}</span></div>
-	</Row>
+		<div slot='right' class='hidden lg:flex justify-end'>
+			<Heading text={number} className='text-accent text-9xl' />
+		</div>
+	</SplitScreen>
 </CenteringWrapper>

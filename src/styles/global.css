@@ -1,11 +1,9 @@
 @import 'tailwindcss';
 
-/* Roboto variable font for body copy and UI text. */
 @font-face {
-	font-family: 'Roboto';
-	src: url('../assets/fonts/Roboto-VariableFont_wdth,wght.ttf')
-		format('truetype-variations');
-	font-weight: 100 900;
+	font-family: 'Lato';
+	src: url('../assets/fonts/Lato-Regular.ttf') format('truetype-variations');
+	font-weight: 400;
 	font-style: normal;
 	font-display: swap;
 }
@@ -59,23 +57,58 @@
 }
 
 @theme {
-	--font-sans: 'Roboto', sans-serif;
+	--font-sans: 'Lato', sans-serif;
 	--font-headings: 'Oswald', sans-serif;
 	--color-base: #fff;
 	--color-accent: #04ce76;
 	--color-accent-2: #34d68f;
 	--color-accent-3: #10a162;
-	--color-dark: #585858;
+	--color-dark-gray: #585858;
+	--color-dark: #292828;
 	--color-gray: #f3f3f3;
 	--color-accent-transparent: #04cf7759;
+	--text-heading-hero: 32px;
+}
+
+html {
+	scroll-behavior: smooth;
 }
 
 p,
 a,
 span {
 	font-family: var(--font-sans);
+	font-size: 20px;
 }
 
-p{
-	@apply text-2xl text-dark;
+p {
+	@apply text-dark;
+}
+
+header.semiopaque {
+	background-color: var(--color-accent);
+}
+
+header.semiopaque [data-mobile-nav-panel] {
+	background-color: var(--color-accent);
+}
+
+header.semiopaque [data-active-nav] {
+	color: var(--color-base);
+}
+
+.el-none {
+	display: none;
+}
+
+.el-block {
+	display: block;
+}
+
+.with-gradient {
+	background: radial-gradient(circle at top left, #34d68f20, transparent 60%);
+}
+
+.with-gradient-right {
+	background: radial-gradient(circle at top right, #34d68f20, transparent 60%);
 }

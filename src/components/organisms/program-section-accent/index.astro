@@ -1,0 +1,28 @@
+---
+import { cn } from '../../../utils/cn'
+import Stack from '../../../components/atoms/stack/index.astro'
+import SplitScreen from '../../../components/atoms/split-screen-wrapper/index.astro'
+import Heading from '../../../components/atoms/heading/index.astro'
+import CenteringWrapper from '../../../components/atoms/centering-wrapper/index.astro'
+import { type ProgramSection as Props } from '../../../constants/program'
+
+const { number, title, background, paragraphs } = Astro.props
+---
+
+<CenteringWrapper className={cn(background, 'py-6')}>
+	<SplitScreen
+		leftWidth='w-0 lg:w-1/4'
+		rightWidth='w-full lg:w-3/4'
+		className='pb-6'
+	>
+		<div slot='left' class=''>
+			<Heading text={number} className='hidden lg:flex text-white  text-9xl' />
+		</div>
+		<Stack slot='right'>
+			<Heading text={number} className='block lg:hidden text-white text-6xl' />
+			<Heading text={title} className='text-white' />
+
+			{paragraphs.map(p => <p set:html={p} />)}
+		</Stack>
+	</SplitScreen>
+</CenteringWrapper>

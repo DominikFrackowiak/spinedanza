@@ -1,15 +1,35 @@
 ---
 import { cn } from '../../../utils/cn'
+import type { HTMLAttributes } from 'astro/types'
 
-interface Props {
+type ButtonTag = 'button' | 'a'
+
+interface Props extends HTMLAttributes<'button'> {
 	isRounded?: boolean
+
+	className?: string
+	href?: string
+	as?: ButtonTag
 }
+
+const {
+	isRounded,
+
+	className,
+	as = 'a',
+	...props
+} = Astro.props
+const Tag = as
 ---
 
-<button
+<Tag
+	{...props}
 	class={cn(
-		'px-4 py-2 bg-accent hover:bg-accent-2 rounded-4xl text-white cursor-pointer'
+		'flex justify-center items-center bg-accent hover:bg-accent-2  text-white cursor-pointer',
+		isRounded ? 'rounded-full p-1.5' : 'rounded-4xl px-4 py-2',
+
+		className
 	)}
 >
 	<slot />
-</button>
+</Tag>

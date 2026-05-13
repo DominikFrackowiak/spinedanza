@@ -1,0 +1,96 @@
+---
+import NavigationMobile from '../navigation-mobile'
+import { navigationData } from '@/constants/navigation'
+import logoWhite from '@/assets/images/SPINE-white-1.svg'
+
+import { cn } from '@/utils/cn'
+
+const normalizePath = (path: string) => {
+	const normalizedPath = path.replace(/\/+$/, '')
+
+	return normalizedPath === '' ? '/' : normalizedPath
+}
+
+const currentPath = normalizePath(Astro.url.pathname)
+---
+
+<header
+	data-site-header
+	class={cn(
+		'fixed top-0 left-0 w-screen flex justify-between items-center! py-4.5 px-4 lg:px-10 z-2 transition-colors'
+	)}
+>
+	<a href='/' class='h-10 text-white'
+		><img src={logoWhite.src} alt='SPINE Danza logo' class='h-full' /></a
+	>
+	<nav class='h-full'>
+		<ul class='hidden md:flex items-center gap-6 h-full'>
+			{
+				navigationData.map(el => (
+					<li
+						data-active-nav={
+							currentPath === normalizePath(el.url) ? true : undefined
+						}
+						class={cn(
+							'underline-offset-8 mt-1 py-2',
+							currentPath !== normalizePath(el.url)
+								? 'text-white font-normal hover:underline'
+								: 'text-accent font-bold underline '
+						)}
+					>
+						<a href={el.url} class='text-lg!'>
+							{el.title}
+						</a>
+					</li>
+				))
+			}
+		</ul>
+	</nav>
+	<NavigationMobile
+		className='flex flex-col items-end md:hidden text-white h-8 gap-4'
+		client:load
+	/>
+</header>
+
+<script>
+	let cleanupHeaderScroll: (() => void) | undefined
+
+	const EXTRA_SCROLL_OFFSET = 32
+
+	const syncHeaderWithScroll = () => {
+		cleanupHeaderScroll?.()
+
+		const header = document.querySelector<HTMLElement>('[data-site-header]')
+		if (!header) return
+
+		let ticking = false
+
+		const updateHeaderState = () => {
+			ticking = false
+			const threshold = header.offsetHeight + EXTRA_SCROLL_OFFSET
+			header.classList.toggle('semiopaque', window.scrollY > threshold)
+		}
+
+		const requestHeaderStateUpdate = () => {
+			if (ticking) return
+			ticking = true
+			window.requestAnimationFrame(updateHeaderState)
+		}
+
+		updateHeaderState()
+
+		window.addEventListener('scroll', requestHeaderStateUpdate, {
+			passive: true,
+		})
+		window.addEventListener('resize', updateHeaderState)
+
+		cleanupHeaderScroll = () => {
+			window.removeEventListener('scroll', requestHeaderStateUpdate)
+			window.removeEventListener('resize', updateHeaderState)
+		}
+	}
+
+	document.addEventListener('astro:page-load', syncHeaderWithScroll)
+	document.addEventListener('astro:before-swap', () => cleanupHeaderScroll?.())
+	syncHeaderWithScroll()
+</script>

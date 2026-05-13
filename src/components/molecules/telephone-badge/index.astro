@@ -1,0 +1,22 @@
+---
+import { cn } from '../../../utils/cn'
+import WhatsAppIcon from '../../atoms/whatsapp-icon/index.astro'
+
+interface Props {
+	className?: string
+	url: string
+	textContent: string
+}
+
+const { className, url, textContent } = Astro.props
+---
+
+<div
+	class={cn(
+		'flex justify-center items-center px-6 py-2 bg-gray rounded-lg self-start gap-2',
+		className
+	)}
+>
+	<a href={url} class='h-6 w-6 text-accent'><WhatsAppIcon /></a>
+	<span>{textContent}</span>
+</div>

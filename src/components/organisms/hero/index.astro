@@ -8,7 +8,9 @@ interface Props {
 	title: string
 	description1: string
 	description2: string
-	buttonContent: string
+	isButtonRounded?: boolean
+	href?: string
+	bgPosition?: string
 }
 const {
 	backgroundImage,
@@ -16,15 +18,20 @@ const {
 	title,
 	description1,
 	description2,
-	buttonContent,
+	isButtonRounded,
+	href,
+	bgPosition = 'bg-center',
 } = Astro.props
 
 const normalizedBackgroundImage = backgroundImage?.trim()
 ---
 
 <div
+	id='hero'
 	class={cn(
-		'relative flex w-screen h-screen overflow-hidden bg-center bg-cover bg-no-repeat'
+		'relative flex w-screen h-screen overflow-hidden bg-cover bg-no-repeat bg-fixed ',
+		bgPosition,
+		!backgroundImage && !video ? 'bg-white!' : ''
 	)}
 	style={normalizedBackgroundImage
 		? { backgroundImage: `url("${normalizedBackgroundImage}")` }
@@ -36,32 +43,49 @@ const normalizedBackgroundImage = backgroundImage?.trim()
 				autoplay
 				muted
 				loop
-				class='absolute top-0 left-0 overflow-hidden scale-400 lg:scale-100'
+				class='absolute top-0 left-0 scale-400 lg:scale-200 h-screen w-auto md:w-full! overflow-hidden'
 			>
 				<source src={video} type='video/mp4' />
 			</video>
 		) : null
 	}
 	<div
-		class='h-full w-full flex flex-col items-center justify-center absolute top-0 bottom-0 left-0 right-0 bg-black/40 gap-8'
+		class={cn(
+			'h-full w-full flex flex-col items-center justify-center absolute top-0 bottom-0 left-0 right-0  gap-8 px-4!',
+			video || backgroundImage ? 'bg-black/40' : 'bg-transparent'
+		)}
 	>
-		<h1 class='hero-fade-in text-accent font-headings font-bold text-9xl'>
-			{title}
-		</h1>
-		<h3 class='flex flex-col gap-2 font-headings text-accent'>
-			<span class='hero-fade-in hero-fade-in-delay-1'>{description1}</span>
-			<span class='hero-fade-in hero-fade-in-delay-2'>{description2}</span>
-		</h3>
-		<div class='hero-fade-in hero-fade-in-delay-3'>
-			<Button>{buttonContent}</Button>
+		<div class='flex flex-col items-center gap-2'>
+			<h1
+				class='hero-fade-in hero-fade-in-delay-1 text-accent font-headings font-bold text-7xl lg:text-9xl tracking-tighter'
+			>
+				{title}
+			</h1>
+			<h3
+				class='flex flex-col items-center gap-2 font-headings text-accent text-center'
+			>
+				<span
+					class='hero-fade-in hero-fade-in-delay-2 text-heading-hero! lg:text-5xl! font-headings! font-light!'
+					>{description1}</span
+				>
+				<span
+					class='hero-fade-in hero-fade-in-delay-3 text-heading-hero! lg:text-5xl! font-headings! font-light!'
+					>{description2}</span
+				>
+			</h3>
+		</div>
+		<div class='hero-fade-in hero-fade-in-delay-4'>
+			<Button isRounded={isButtonRounded} as='a' href={href}
+				><slot name='button' /></Button
+			>
 		</div>
 	</div>
+	<div id='main' class='absolute bottom-20 left-0 h-10 w-full'></div>
 </div>
 
 <style>
 	.hero-fade-in {
 		opacity: 0;
-		animation-delay: 0.4s;
 		animation: hero-fade-in 0.8s forwards;
 	}
 
@@ -75,6 +99,10 @@ const normalizedBackgroundImage = backgroundImage?.trim()
 
 	.hero-fade-in-delay-3 {
 		animation-delay: 1.6s;
+	}
+
+	.hero-fade-in-delay-4 {
+		animation-delay: 2s;
 	}
 
 	@keyframes hero-fade-in {

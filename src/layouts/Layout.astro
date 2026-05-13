@@ -1,37 +1,118 @@
 ---
 import '../styles/global.css'
 import { ClientRouter } from 'astro:transitions'
-import Navigation from '../components/organisms/navigation/index.astro'
+import Header from '../components/organisms/header/index.astro'
 import Footer from '../components/organisms/footer/index.astro'
-const { title } = Astro.props
+import Button from '../components/atoms/button/index.astro'
+import ArrowUpIcon from '../components/atoms/arrow-up-icon/index.astro'
+import ogImage from '../assets/images/hero/marta-wrzesinska-jesus-alonso-contact-impro-1.webp'
+interface Props {
+	title?: string
+	description?: string
+	is404?: boolean
+}
+const {
+	title = 'SPINE - Danza Contact Improvisación en Madrid',
+	description = 'Ciclo de profundización en Danza Contact Improvisación en Madrid: escucha, peso, presencia, relación e investigación del movimiento.',
+	is404 = false,
+} = Astro.props
+const isHomePage = Astro.url.pathname === '/'
+const siteUrl = Astro.site ?? Astro.url.origin
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href
+const socialImageUrl = new URL(ogImage.src, canonicalUrl).href
 ---
 
 <!doctype html>
-<html lang='en'>
+<html lang='es' class={isHomePage ? 'overflow-hidden' : undefined}>
 	<head>
 		<meta charset='UTF-8' />
 		<meta name='viewport' content='width=device-width' />
-		<link rel='icon' type='image/svg+xml' href='/favicon.svg' />
-		<link rel='icon' href='/favicon.ico' />
+		<link rel='icon' type='image/png' sizes='32x32' href='/favicon-32x32.png' />
+		<link rel='icon' type='image/png' sizes='16x16' href='/favicon-16x16.png' />
+		<link rel='icon' href='/favicon.ico' sizes='any' />
+		<link rel='apple-touch-icon' sizes='180x180' href='/apple-touch-icon.png' />
 		<meta name='generator' content={Astro.generator} />
-		<title>SPINE DANZA | {title}</title>
+		<meta name='description' content={description} />
+		<link rel='canonical' href={canonicalUrl} />
+		<meta property='og:type' content='website' />
+		<meta property='og:locale' content='es_ES' />
+		<meta property='og:title' content={title} />
+		<meta property='og:description' content={description} />
+		<meta property='og:url' content={canonicalUrl} />
+		<meta property='og:image' content={socialImageUrl} />
+		<meta name='twitter:card' content='summary_large_image' />
+		<meta name='twitter:title' content={title} />
+		<meta name='twitter:description' content={description} />
+		<meta name='twitter:image' content={socialImageUrl} />
+		<title>{title}</title>
 		<ClientRouter />
 	</head>
-	<body>
-		<Navigation />
-		<main class='flex flex-col gap-4'>
+	<body class={isHomePage ? 'overflow-hidden' : 'overflow-x-hidden'}>
+		{!is404 ? <Header /> : null}
+		<main
+			class={isHomePage ? 'h-screen overflow-hidden' : 'flex flex-col gap-4'}
+		>
 			<slot />
+
+			<!-- <a href='#hero' class='h-10! w-10!' -->
+			<Button
+				as='a'
+				href='#hero'
+				'
+				isRounded
+				className='fixed right-0 mr-4 lg:mr-10 bottom-20 z-10 el-none toBeToggled'
+			>
+				<ArrowUpIcon class='h-10 w-10' /></Button
+			>
 		</main>
 
-		<Footer />
+		{!is404 ? <Footer /> : null}
 	</body>
 </html>
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
+<script>
+	let arrowObserver: IntersectionObserver
+
+	const setArrowVisibility = (arrowUp: Element, isVisible: boolean) => {
+		arrowUp.classList.toggle('el-none', !isVisible)
+		arrowUp.classList.toggle('el-block', isVisible)
 	}
-</style>
+
+	const syncArrowWithHero = () => {
+		const arrowUp = document.querySelector('.toBeToggled')
+		const hero = document.querySelector('#hero')
+
+		arrowObserver?.disconnect()
+
+		if (!arrowUp) return
+
+		setArrowVisibility(arrowUp, false)
+
+		if (!hero) return
+
+		if (typeof (window as any).IntersectionObserver === 'undefined') {
+			const updateArrowVisibility = () => {
+				setArrowVisibility(arrowUp, window.scrollY >= hero.clientHeight)
+			}
+
+			window.addEventListener('scroll', updateArrowVisibility, {
+				passive: true,
+			})
+			window.addEventListener('resize', updateArrowVisibility)
+			updateArrowVisibility()
+			return
+		}
+
+		arrowObserver = new IntersectionObserver(
+			([entry]) => {
+				setArrowVisibility(arrowUp, !entry.isIntersecting)
+			},
+			{ threshold: 0 }
+		)
+
+		arrowObserver.observe(hero)
+	}
+
+	document.addEventListener('astro:page-load', syncArrowWithHero)
+	syncArrowWithHero()
+</script>

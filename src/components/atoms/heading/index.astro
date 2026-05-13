@@ -8,7 +8,10 @@ const { text, className } = Astro.props
 ---
 
 <h2
-	class={cn('font-headings text-3xl text-accent font-light uppercase tracking-widest py-4', className)}
+	class={cn(
+		'font-headings text-3xl text-accent font-light uppercase tracking-widest py-4',
+		className
+	)}
 >
 	{text}
 </h2>

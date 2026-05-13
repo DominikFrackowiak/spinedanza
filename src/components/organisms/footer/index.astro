@@ -5,6 +5,9 @@ import { socialNavigation } from '../../../constants/navigation'
 import FacebookIcon from '../../atoms/facebook-icon/index.astro'
 import WhatsAppIcon from '../../atoms/whatsapp-icon/index.astro'
 import InstagramIcon from '../../atoms/instagram-icon/index.astro'
+import spineLogo from '../../../assets/images/spine-green-small.svg'
+import kraftwebLogo from '../../../assets/images/kraftweb-logo-small.svg'
+import kraftwebDarkLogo from '../../../assets/images/kraftweb-dark-small.svg'
 
 const socialIconMap = {
 	facebook: FacebookIcon,
@@ -18,15 +21,15 @@ const socialIconMap = {
 
 <footer
 	class={cn(
-		'flex w-screen items-center justify-between bottom-0 left-0 p-10',
+		'flex w-screen items-center justify-between bottom-0 left-0 py-6 px-4 lg:px-10',
 		currentPath === '/' ? 'fixed' : 'relative'
 	)}
 >
-	<div class='flex items-center gap-5'>
-		<img
-			src='https://spinedanza.es/wp-content/uploads/2026/03/spine-green-small.svg'
-		/>
-		<nav class='flex gap-4'>
+	<div
+		class='flex flex-col lg:flex-row items-start lg:items-center gap-2 lg:gap-4'
+	>
+		<img src={spineLogo.src} alt='Spine - logo' />
+		<nav class='flex gap-2'>
 			{
 				socialNavigation.map(el => {
 					const Icon = socialIconMap[el.icon]
@@ -37,7 +40,10 @@ const socialIconMap = {
 							aria-label={el.title}
 							target='_blank'
 							rel='noreferrer'
-							class='h-5 w-5'
+							class={cn(
+								'h-5 w-5',
+								currentPath === '/' ? 'text-white' : 'text-dark-gray'
+							)}
 						>
 							<Icon />
 						</a>
@@ -46,11 +52,18 @@ const socialIconMap = {
 			}
 		</nav>
 	</div>
-	<div class='flex items-center gap-4'>
-		<span>Designed and developed by:</span>
+	<div
+		class='flex flex-col lg:flex-row items-end lg:items-center gap-2 lg:gap-4'
+	>
+		<span
+			class={cn(
+				'text-sm!',
+				currentPath === '/' ? 'text-white' : 'text-dark-gray'
+			)}>Designed and developed by:</span
+		>
 		<a href='https://kraftweb.eu/?locale=es'
 			><img
-				src='https://spinedanza.es/wp-content/uploads/2026/03/kraftweb-logo-small-cropped.svg'
+				src={currentPath === '/' ? kraftwebLogo.src : kraftwebDarkLogo.src}
 				alt='kraftweb.eu logo'
 			/></a
 		>

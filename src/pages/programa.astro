@@ -1,0 +1,40 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import Hero from '@/components/organisms/hero/index.astro'
+import Stack from '@/components/atoms/stack/index.astro'
+import ProgramSection from '@/components/organisms/program-section/index.astro'
+import ProgramSectionAccent from '@/components/organisms/program-section-accent/index.astro'
+import ArrowDownIcon from '@/components/atoms/arrow-down-icon/index.astro'
+import heroImage from '@/assets/images/hero/marta-wrzesinska-jesus-alonso-contact-impro-3.webp'
+
+import { programData } from '@/constants/program'
+
+const title = 'Programa de Contact Improvisación | SPINE Madrid'
+const description =
+	'Explora los 8 módulos del programa de Contact Improvisación: escucha, peso, caída, composición, vuelo e improvisación aplicada al movimiento.'
+---
+
+<Layout title={title} description={description}>
+	<Hero
+		title='SPINE'
+		description1='OCHO MÓDULOS PARA PROFUNDIZAR EN'
+		description2='LA PRÁCTICA DEL CONTACT IMPROVISATION'
+		backgroundImage={heroImage.src}
+		isButtonRounded
+		href='#main'
+	>
+		<ArrowDownIcon class='h-10 w-10' slot='button' />
+	</Hero>
+
+	<Stack className='gap-0'>
+		{
+			programData.map(section =>
+				section.background === 'bg-white' ? (
+					<ProgramSection {...section} />
+				) : (
+					<ProgramSectionAccent {...section} />
+				)
+			)
+		}
+	</Stack>
+</Layout>

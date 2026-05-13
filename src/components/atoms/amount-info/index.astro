@@ -1,0 +1,25 @@
+---
+import { cn } from '../../../utils/cn'
+
+interface Props {
+	amount: string
+	className?: string
+	color?: 'white' | 'dark' | 'accent'
+}
+
+const { amount, className, color } = Astro.props
+
+const textColor = {
+	white: 'text-white',
+	dark: 'text-dark-gray',
+	accent: 'text-accent',
+} as const
+---
+
+<span
+	class={cn(
+		'font-headings! font-normal text-3xl!',
+		color ? textColor[color] : '',
+		className
+	)}>{amount}</span
+>

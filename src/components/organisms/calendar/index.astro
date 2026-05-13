@@ -1,0 +1,8 @@
+---
+import CalendarRow from '../../molecules/calendar-row/index.astro'
+import { calendarData } from '../../../constants/calendar'
+---
+
+<>
+	{calendarData.map(el => <CalendarRow {...el} />)}
+</>

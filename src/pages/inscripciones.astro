@@ -1,0 +1,108 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import Hero from '@/components/organisms/hero/index.astro'
+import Stack from '@/components/atoms/stack/index.astro'
+import CenteringWrapper from '@/components/atoms/centering-wrapper/index.astro'
+import Heading from '@/components/atoms/heading/index.astro'
+import TelephoneBadge from '@/components/molecules/telephone-badge/index.astro'
+import Card from '@/components/molecules/card/index.astro'
+import AmountInfo from '@/components/atoms/amount-info/index.astro'
+import { conditions, deposit } from '@/constants/inscription'
+import ArrowDownIcon from '@/components/atoms/arrow-down-icon/index.astro'
+import heroImage from '@/assets/images/hero/marta-wrzesinska-jesus-alonso-contact-impro-5.webp'
+const title = 'Inscripciones Contact Improvisación Madrid | SPINE'
+const description =
+	'Reserva tu plaza para el ciclo de Contact Improvisación en Madrid. Consulta tarifas, depósito, condiciones y participación por módulos.'
+---
+
+<Layout title={title} description={description}>
+	<Hero
+		title='SPINE'
+		description1='RESERVA TU PLAZA Y CONSULTA'
+		description2='LAS CONDICIONES DEL PROGRAMA'
+		backgroundImage={heroImage.src}
+		isButtonRounded
+		href='#main'
+	>
+		<ArrowDownIcon class='h-10 w-10' slot='button' />
+	</Hero>
+	<CenteringWrapper>
+		<Stack className='py-6'>
+			<Heading text='INSCRIPCIÓN Y CONTACTO' />
+			<p>Escríbenos para inscribirte o para aclarar cualquier duda a:</p>
+			<Stack className='gap-3'>
+				<TelephoneBadge
+					textContent='Marta +34 647 22 90 01'
+					url='https://wa.me/34647229001'
+				/>
+				<TelephoneBadge
+					textContent='Jesús +34 635 68 33 94'
+					url='https://wa.me/34635683394'
+				/>
+			</Stack>
+			<Heading text='TARIFAS' />
+			<Stack className='gap-3'>
+				<Card className='text-3xl font-bold'>
+					<p class='flex items-center gap-2 text-white!'>
+						<span>Ciclo completo: </span><AmountInfo amount='8' color='white' />
+						<span>módulos</span>
+					</p>
+					<p class='flex items-center gap-2 text-white!'>
+						<span>Total ciclo: </span><AmountInfo amount='800€' color='dark' />
+					</p>
+					<p class='flex items-center gap-2 text-white!'>(100€ por módulo)</p>
+				</Card>
+				<Card background='bg-white' className='text-3xl font-bold'>
+					<p class='text-dark-gray!'>
+						Para reservar plaza en el ciclo completo:
+					</p>
+					<p class='flex items-center gap-2 text-dark-gray!'>
+						<span>Depósito inicial: </span><AmountInfo
+							amount='250€'
+							color='accent'
+						/>
+					</p>
+					<p class='text-dark-gray!'>(plazo: hasta 1 de octubre de 2026)</p>
+				</Card>
+			</Stack>
+			<Heading text='CONDICIONES DE COMPROMISO' />
+			<ul class='flex flex-col gap-6'>
+				{
+					conditions.map(el => (
+						<li>
+							<div class='flex justify-start items-start gap-2.5'>
+								<div class='w-2 h-2 bg-accent rounded-full mt-2.5' />
+								<span>{el}</span>
+							</div>
+						</li>
+					))
+				}
+			</ul>
+			<Heading text='DEPÓSITO' />
+			<ul class='flex flex-col gap-6'>
+				{
+					deposit.map(el => (
+						<li>
+							<div class='flex justify-start items-start gap-2.5'>
+								<div class='w-2 h-2 bg-accent rounded-full mt-2.5' />
+								<span>{el}</span>
+							</div>
+						</li>
+					))
+				}
+			</ul>
+			<Heading text='TALLER SUELTO' />
+			<p>
+				(En caso de que queden espacios libres se admiten participantes con
+				experiencia previa dando prioridad al compromiso y continuidad del
+				grupo)
+			</p>
+			<div class='flex gap-2 items-center'>
+				<AmountInfo amount='150€' color='accent' /><AmountInfo
+					amount='por modulo'
+					color='dark'
+				/>
+			</div>
+		</Stack>
+	</CenteringWrapper>
+</Layout>

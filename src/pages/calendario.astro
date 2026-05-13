@@ -1,0 +1,76 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import Hero from '@/components/organisms/hero/index.astro'
+import Stack from '@/components/atoms/stack/index.astro'
+import Calendar from '@/components/organisms/calendar/index.astro'
+import CenteringWrapper from '@/components/atoms/centering-wrapper/index.astro'
+import Heading from '@/components/atoms/heading/index.astro'
+import Card from '@/components/molecules/card/index.astro'
+import SplitScreen from '@/components/atoms/split-screen-wrapper/index.astro'
+import ArrowDownIcon from '@/components/atoms/arrow-down-icon/index.astro'
+import heroImage from '@/assets/images/hero/marta-wrzesinska-jesus-alonso-contact-impro-4.webp'
+const title = 'Calendario Contact Improvisación 2026-2027 | SPINE'
+const description =
+	'Consulta el calendario completo del ciclo: fechas, horarios y localización de los módulos de Spine Danza en Madrid, de octubre 2026 a mayo 2027.'
+---
+
+<Layout title={title} description={description}>
+	<Hero
+		title='SPINE'
+		description1='FECHAS, HORARIOS Y ESTRUCTURA'
+		description2='DEL CICLO COMPLETO'
+		backgroundImage={heroImage.src}
+		isButtonRounded
+		href='#main'
+	>
+		<ArrowDownIcon class='h-10 w-10' slot='button' />
+	</Hero>
+
+	<CenteringWrapper>
+		<Stack className='py-6'>
+			<Heading text='FECHAS' />
+			<Calendar />
+			<Heading text='HORARIOS' />
+			<div class='flex flex-col gap-3.5'>
+				<Card>
+					<h3 class='text-dark-gray font-bold text-xl'>SÁBADOS</h3>
+					<div class='flex flex-col'>
+						<span class='text-white'>10:00 - 14:00</span>
+						<span class='text-white'>16:00 - 20:00</span>
+					</div>
+				</Card>
+
+				<Card>
+					<h3 class='text-dark-gray font-bold text-xl'>DOMINGOS</h3>
+					<div class='flex flex-col'>
+						<span class='text-white'>10:00 - 14:00</span>
+					</div>
+				</Card>
+			</div>
+			<Heading text='LOCALIZACIÓN' />
+			<SplitScreen
+				className='flex-col lg:flex-row items-center gap-10'
+				leftWidth='w-full lg:w-1/2'
+				rightWidth='w-full lg:w-1/2'
+			>
+				<Stack slot='left' className='w-full'>
+					<Card background='bg-white' className='text-dark w-full'>
+						<span class='font-bold'>ESTUDIO 113</span>
+						<span>CALLE RONDA DE TOLEDO 16, LOCAL 113</span>
+						<span>MADRID</span>
+					</Card>
+				</Stack>
+				<Stack slot='right'>
+					<iframe
+						src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3038.1603248651745!2d-3.7100246245176023!3d40.40529895633586!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd4227d3d25a537b%3A0xbdf623cfd8a69fdc!2sRonda%20de%20Toledo%2C%2016%2C%20Local%20113%2C%20Arganzuela%2C%2028005%20Madrid!5e0!3m2!1spl!2ses!4v1773347481075!5m2!1spl!2ses'
+						width='100%'
+						height='auto'
+						style='border:0;'
+						allowfullscreen=''
+						loading='lazy'
+						referrerpolicy='no-referrer-when-downgrade'></iframe>
+				</Stack>
+			</SplitScreen>
+		</Stack>
+	</CenteringWrapper>
+</Layout>

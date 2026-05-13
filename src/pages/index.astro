@@ -1,18 +1,24 @@
 ---
 import Layout from '../layouts/Layout.astro'
 import Hero from '../components/organisms/hero/index.astro'
+import video from '../../src/assets/video/hero-video.mp4'
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const title = 'SPINE - Danza Contact Improvisación en Madrid'
+const description =
+	'Ciclo de profundización en Danza Contact Improvisación en Madrid: 8 módulos sobre escucha, peso, presencia, relación e investigación del movimiento.'
 ---
 
-<Layout>
-	
-	<Hero
-		buttonContent='Ver la propuesta'
-		title='SPINE'
-		description1='CICLO DE PROFUNDIZACIÓN EN'
-		description2='DANZA CONTACT IMPROVISACIÓN'
-		video='https://spinedanza.es/wp-content/uploads/2026/03/hero-video.mp4'
-	/>
+<Layout title={title} description={description}>
+	<div class='h-screen overflow-hidden'>
+		<Hero
+			title='SPINE'
+			description1='CICLO DE PROFUNDIZACIÓN EN'
+			description2='DANZA CONTACT IMPROVISACIÓN'
+			video={video}
+			isButtonRounded={false}
+			href='/propuesta'
+		>
+			<span slot='button' class='text-lg!'>Ver la propuesta</span>
+		</Hero>
+	</div>
 </Layout>

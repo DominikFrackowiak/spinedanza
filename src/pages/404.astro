@@ -1,0 +1,20 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import Hero from '@/components/organisms/hero/index.astro'
+
+const title = 'SPINE - Danza Contact Improvisación en Madrid | 404'
+---
+
+<Layout title={title} is404>
+	<div class='h-screen overflow-hidden'>
+		<Hero
+			title='404'
+			description1='OOOPSSS, HA HABIDO UN ERROR'
+			description2='AQUÍ NO HAY NADA'
+			isButtonRounded={false}
+			href='/'
+		>
+			<span slot='button' class='text-lg!'>Ir a la página principal</span>
+		</Hero>
+	</div>
+</Layout>
