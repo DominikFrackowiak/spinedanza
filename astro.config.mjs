@@ -2,6 +2,7 @@
 import { defineConfig } from 'astro/config';
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
+import sitemap from '@astrojs/sitemap';
 
 import tailwindcss from '@tailwindcss/vite';
 
@@ -22,5 +23,5 @@ export default defineConfig({
       },
     },
   },
-  integrations: [react()]
+  integrations: [react(), sitemap()]
 });
