@@ -12,23 +12,23 @@ export type SocialNavigationItem = NavigationItem & {
 export const navigationData = [
 	{
 		title: 'Propuesta',
-		url: '/propuesta'
+		url: '/propuesta/'
 	},
 	{
 		title: 'Docentes',
-		url: '/docentes'
+		url: '/docentes/'
 	},
 	{
 		title: 'Programa',
-		url: '/programa'
+		url: '/programa/'
 	},
 	{
 		title: 'Calendario',
-		url: '/calendario'
+		url: '/calendario/'
 	},
 	{
 		title: 'Inscripciones',
-		url: '/inscripciones'
+		url: '/inscripciones/'
 	}
 ] satisfies NavigationItem[]
 

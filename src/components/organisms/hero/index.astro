@@ -1,9 +1,12 @@
 ---
+import { Image } from 'astro:assets'
+import type { ImageMetadata } from 'astro'
 import Button from '../../atoms/button/index.astro'
 import { cn } from '../../../utils/cn'
 
 interface Props {
-	backgroundImage?: string
+	backgroundImage?: ImageMetadata
+	backgroundImageAlt?: string
 	video?: string
 	title: string
 	description1: string
@@ -11,10 +14,11 @@ interface Props {
 	isButtonRounded?: boolean
 	isMain?: boolean
 	href?: string
-	bgPosition?: string
+	imagePosition?: string
 }
 const {
 	backgroundImage,
+	backgroundImageAlt = '',
 	video,
 	title,
 	description1,
@@ -22,24 +26,29 @@ const {
 	isButtonRounded,
 	isMain = false,
 	href,
-	bgPosition = 'bg-center',
+	imagePosition = 'object-center',
 } = Astro.props
-
-const normalizedBackgroundImage = backgroundImage?.trim()
 ---
 
 <div
 	id='hero'
 	class={cn(
-		'relative flex w-screen h-screen overflow-hidden bg-cover bg-no-repeat bg-fixed ',
-		bgPosition,
+		'relative flex w-screen h-screen overflow-hidden',
 		!backgroundImage && !video ? 'bg-white!' : '',
-		isMain ? 'h-screen' : 'h-[90vh]'
+		isMain ? 'h-screen' : 'h-[95vh]'
 	)}
-	style={normalizedBackgroundImage
-		? { backgroundImage: `url("${normalizedBackgroundImage}")` }
-		: undefined}
 >
+	{
+		backgroundImage && !video ? (
+			<Image
+				src={backgroundImage}
+				alt={backgroundImageAlt}
+				class={cn('absolute inset-0 h-full w-full object-cover', imagePosition)}
+				loading='eager'
+				fetchpriority='high'
+			/>
+		) : null
+	}
 	{
 		video ? (
 			<video
