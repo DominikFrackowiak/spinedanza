@@ -85,6 +85,8 @@ p {
 	@apply text-dark;
 }
 
+
+
 header.semiopaque {
 	background-color: var(--color-accent);
 }
