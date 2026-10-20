@@ -25,6 +25,20 @@ const socialImageUrl = new URL(ogImage.src, canonicalUrl).href
 <!doctype html>
 <html lang='es' class={isHomePage ? 'overflow-hidden' : undefined}>
 	<head>
+		<!-- Google tag (gtag.js) -->
+		<script
+			is:inline
+			async
+			src='https://www.googletagmanager.com/gtag/js?id=G-D26NCT8Z2L'
+		></script>
+		<script is:inline>
+			window.dataLayer = window.dataLayer || []
+			function gtag() {
+				window.dataLayer.push(arguments)
+			}
+			gtag('js', new Date())
+			gtag('config', 'G-D26NCT8Z2L')
+		</script>
 		<meta charset='UTF-8' />
 		<meta name='viewport' content='width=device-width' />
 		<link rel='icon' type='image/png' sizes='32x32' href='/favicon-32x32.png' />
