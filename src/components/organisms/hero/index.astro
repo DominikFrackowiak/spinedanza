@@ -131,3 +131,13 @@ const {
 		}
 	}
 </style>
+
+<script>
+	function muteHeroVideo() {
+		const video = document.querySelector<HTMLVideoElement>('#hero video')
+		if (video) video.muted = true
+	}
+
+	muteHeroVideo()
+	document.addEventListener('astro:after-swap', muteHeroVideo)
+</script>
