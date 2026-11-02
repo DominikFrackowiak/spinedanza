@@ -16,40 +16,43 @@ const currentPath = normalizePath(Astro.url.pathname)
 
 <header
 	data-site-header
-	class={cn(
-		'fixed top-0 left-0 w-screen flex justify-between items-center! py-4.5 px-4 lg:px-10 z-2 transition-colors'
-	)}
+	class={cn('fixed top-0 left-0 w-screen  py-4.5  z-2 transition-colors ')}
+	px-4
 >
-	<a href='/' class='h-10 text-white'
-		><img src={logoWhite.src} alt='SPINE Danza logo' class='h-full' /></a
+	<div
+		class='w-full max-w-7xl mx-auto flex justify-between items-center!'
 	>
-	<nav class='h-full'>
-		<ul class='hidden md:flex items-center gap-6 h-full'>
-			{
-				navigationData.map(el => (
-					<li
-						data-active-nav={
-							currentPath === normalizePath(el.url) ? true : undefined
-						}
-						class={cn(
-							'underline-offset-8 mt-1 py-2',
-							currentPath !== normalizePath(el.url)
-								? 'text-white font-normal hover:underline'
-								: 'text-accent font-bold underline '
-						)}
-					>
-						<a href={el.url} class='text-lg!'>
-							{el.title}
-						</a>
-					</li>
-				))
-			}
-		</ul>
-	</nav>
-	<NavigationMobile
-		className='flex flex-col items-end md:hidden text-white h-8 gap-4'
-		client:load
-	/>
+		<a href='/' class='h-10 text-white'
+			><img src={logoWhite.src} alt='SPINE Danza logo' class='h-full' /></a
+		>
+		<nav class='h-full'>
+			<ul class='hidden md:flex items-center gap-6 h-full'>
+				{
+					navigationData.map(el => (
+						<li
+							data-active-nav={
+								currentPath === normalizePath(el.url) ? true : undefined
+							}
+							class={cn(
+								'underline-offset-8 mt-1 py-2',
+								currentPath !== normalizePath(el.url)
+									? 'text-white font-normal hover:underline'
+									: 'text-accent font-bold underline '
+							)}
+						>
+							<a href={el.url} class='text-lg!'>
+								{el.title}
+							</a>
+						</li>
+					))
+				}
+			</ul>
+		</nav>
+		<NavigationMobile
+			className='flex flex-col items-end md:hidden text-white h-8 gap-4'
+			client:load
+		/>
+	</div>
 </header>
 
 <script>

@@ -8,6 +8,7 @@ interface Props {
 	backgroundImage?: ImageMetadata
 	backgroundImageAlt?: string
 	video?: string
+	poster?: string
 	title: string
 	description1: string
 	description2: string
@@ -20,6 +21,7 @@ const {
 	backgroundImage,
 	backgroundImageAlt = '',
 	video,
+	poster,
 	title,
 	description1,
 	description2,
@@ -55,6 +57,8 @@ const {
 				autoplay
 				muted
 				loop
+				playsinline
+				poster={poster}
 				class='absolute top-0 left-0 scale-400 lg:scale-200 h-screen w-auto md:w-full! overflow-hidden'
 			>
 				<source src={video} type='video/mp4' />
